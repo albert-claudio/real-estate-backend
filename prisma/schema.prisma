@@ -1,5 +1,5 @@
 generator client {
-    provider = "prisma-client-j"
+    provider = "prisma-client-js"
 }
 
 datasource db{
@@ -13,7 +13,7 @@ model User {
     email            String @unique
     image            String?
     bookedVisits     Json[]
-    favResidenciesiD String[] @db.ObjectId
+    favResidenciesID String[] @db.ObjectId
     ownedResidencies Residency[] @relation("Owner")
 }
 
@@ -21,7 +21,7 @@ model Residency {
     id          String @id @default(auto()) @map("_id") @db.ObjectId
     title       String
     description String
-    prince      Int
+    price       Int
     address     String
     city        String
     country     String
@@ -29,6 +29,8 @@ model Residency {
     facilities  Json
     userEmail   String
     owner       User @relation("Owner", fields: [userEmail], references: [email])
-    createdAt DateTime @default(now())
-    updateAt DateTime @updatedAt
+    createdAt   DateTime @default(now())
+    updateAt    DateTime @updatedAt
+
+    @@unique(fields: [address, userEmail])
 }

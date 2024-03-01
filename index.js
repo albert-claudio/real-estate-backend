@@ -2,6 +2,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+//import { auth } from 'express-oauth2-jwt-bearer'
+import { userRoute } from './routes/userRoute.js'
+import { residencyRoute } from './routes/residencyRoute.js'
 
 dotenv.config()
 
@@ -16,3 +19,6 @@ app.use(cors())
 app.listen(PORT, ()=>{
     console.log(`Server is running on Port ${PORT}`)
 })
+
+app.use('/api/user', userRoute)
+app.use('/api/residency', residencyRoute)
